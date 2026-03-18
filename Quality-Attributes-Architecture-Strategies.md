@@ -159,7 +159,7 @@ Use this template to make requirements measurable/testable (from “quality attr
   - **Architecture patterns**: Reduce chatty calls; prefer coarse-grained APIs.
   - **Design patterns**: Caching (Cache-Aside); Pooling (connection pools).
   - **Coding practices**: Avoid N+1 queries; pagination; async I/O; measure before optimizing.
-  - **Infra/tooling**: Basic APM; DB indexes; CDN for static content.
+  - **Infra/tooling**: Basic Application Performance Monitoring; DB indexes; CDN for static content.
 - **Medium**
   - **Architecture patterns**: CQRS where reads dominate (can be within one codebase); async processing for non-critical tasks (notifications).
   - **Design patterns**: Batch; Circuit Breaker to prevent cascading latency.
