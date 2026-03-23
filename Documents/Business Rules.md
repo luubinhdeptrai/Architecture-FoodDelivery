@@ -11,8 +11,8 @@
 
 **3. Payment & Financial Rules**
 
-* **BR-4 (Cash on Delivery Exclusivity):** For the purposes of Release 1 (MVP), Cash on Delivery (COD) is the sole supported and permitted payment method for all transactions. Integration with online payment gateways (VNPay, MoMo) is explicitly deferred to subsequent releases.
-* **BR-5 (Commission Calculation):** The platform calculates its expected commission from restaurants as a fixed percentage of the Gross Merchandise Value (GMV), which is determined by the total COD collected by shippers for that specific restaurant.
+* **BR-4 (Supported Payment Methods):** For Release 1 (MVP), the platform shall support both **Cash on Delivery (COD)** and **online payment via VNPay** as valid payment methods at checkout. If the customer selects VNPay, the system shall only finalize and route the order after receiving a successful payment confirmation from VNPay; otherwise, the order shall not be routed and shall be marked as payment failed/cancelled.
+* **BR-5 (Commission Calculation):** The platform calculates its expected commission from restaurants as a fixed percentage of the Gross Merchandise Value (GMV). GMV is determined as the sum of completed order totals regardless of payment method (COD collected by shippers, or VNPay-paid amounts confirmed by the gateway) for that specific restaurant.
 
 **4. Operational & Fulfillment Rules**
 

@@ -116,8 +116,8 @@ FE-12: Push notifications for order updates across all roles.
 
 | **Feature** | **Release 1 (MVP)** | **Release 2** | **Release 3** |
 | --- | --- | --- | --- |
-| **FE-1 to FE-3, Customer Core** | Full registration, search, cart, checkout with COD payment only | Add VNPay and MoMo payment; save multiple addresses | Loyalty points, group orders, scheduled orders |
-| **FE-4, Online Payment** | Not implemented (COD only) | VNPay and MoMo fully integrated | Additional e-wallet support (ZaloPay) |
+| **FE-1 to FE-3, Customer Core** | Full registration, search, cart, checkout with COD or VNPay payment | Save multiple addresses; refine payment UX | Loyalty points, group orders, scheduled orders |
+| **FE-4, Online Payment** | VNPay integrated | MoMo integrated | Additional e-wallet support (ZaloPay) |
 | **FE-5, Real-time Tracking** | Basic order status updates | Full map-based live tracking via WebSocket | Predictive ETA using ML model |
 | **FE-6, Restaurant Portal** | Menu management, order acceptance, preparation status | Flash sales, ingredient/stock management, multi-branch | Advanced analytics and BI dashboard |
 | **FE-7, Shipper Portal** | Availability toggle, order pickup, delivery confirmation | Earnings statistics, customer ratings view | Route optimization with ML-assisted dispatch |
@@ -128,7 +128,7 @@ FE-12: Push notifications for order updates across all roles.
 
 LI-1: The initial release of the platform will serve only a single designated geographic area (city or district). Expansion to additional regions is planned for subsequent releases.
 
-LI-2: Cash on delivery (COD) is the only supported payment method in Release 1. Online payment gateways will be integrated starting from Release 2.
+LI-2: Release 1 supports both Cash on Delivery (COD) and online payments via VNPay. Additional online payment gateways (e.g., MoMo) may be introduced in subsequent releases.
 
 LI-3: AI/ML-powered features (personalized recommendations, image search, fraud detection, predictive delivery ETA) are excluded from Releases 1 and 2 and are designated as long-term roadmap items.
 
@@ -165,6 +165,6 @@ The backend will be built on NestJS (Node.js) with PostgreSQL as the primary rel
 
 WebSocket infrastructure (Socket.io) must be configured to support concurrent real-time connections for order tracking. This requires appropriate server resources and load testing prior to release. A message queue system (Bull Queue or RabbitMQ) will be implemented to handle asynchronous order processing at scale.
 
-Starting from Release 2, integration with VNPay and MoMo payment gateways requires sandbox environment testing and compliance with the payment providers' integration standards before going live. All API credentials must be secured using environment variables and must never be committed to source control.
+Starting from Release 1, integration with the VNPay payment gateway requires sandbox environment testing and compliance with the payment provider's integration standards before going live. Integration with additional gateways (e.g., MoMo) may be added in subsequent releases following the same approach. All API credentials must be secured using environment variables and must never be committed to source control.
 
 User-facing training materials, including short tutorial videos (no more than 5 minutes each), will be developed for both the web interface and admin dashboard as part of the Release 1 launch package.

@@ -164,7 +164,7 @@ The product consists of several interconnected front-end applications interactin
 * **Restaurant App/Portal (Tablet/Mobile):** A mobile-optimized application designed for kitchen environments to manage menus and quickly update order preparation statuses.
 * **Admin Dashboard:** A centralized web-based interface reserved for system administrators to perform manual reviews, monitor platform health, and manage system configurations.
 
-*External System Interfaces:* To support the native mobile environment, the system will interface with mobile-specific external services. This includes integration with Apple Push Notification service (APNs) and Firebase Cloud Messaging (FCM) for real-time alerts. Mapping and geolocation services will rely on native mobile SDKs provided by external partners (e.g., Google Maps SDK for iOS/Android or Mapbox). While Release 1 operates largely independently using Cash on Delivery (COD), subsequent releases will introduce mobile-optimized payment gateway integrations (VNPay, MoMo, Apple Pay, Google Pay).
+*External System Interfaces:* To support the native mobile environment, the system will interface with mobile-specific external services. This includes integration with Apple Push Notification service (APNs) and Firebase Cloud Messaging (FCM) for real-time alerts. Mapping and geolocation services will rely on native mobile SDKs provided by external partners (e.g., Google Maps SDK for iOS/Android or Mapbox). For Release 1, the platform supports Cash on Delivery (COD) and online payments via VNPay; subsequent releases may introduce additional mobile-optimized payment gateway integrations (e.g., MoMo, Apple Pay, Google Pay).
 
 ## User Classes and Characteristics
 
@@ -174,7 +174,7 @@ The Food Delivery Platform serves a multi-sided marketplace ecosystem. The syste
 
 * **Description:** The general public who use the platform to discover restaurants, order food, and track deliveries. As the primary revenue drivers, their user experience dictates the platform's success, making them the favored user class.
 * **Characteristics & Environment:** They encompass a wide demographic with varying levels of technical expertise. They will access the platform exclusively via native iOS or Android applications on their personal smartphones.
-* **Key Needs:** They require a highly intuitive, low-friction mobile interface. Key features include fast search functionality, seamless cart management, clear Cash on Delivery (COD) workflows, and real-time push notifications for order tracking.
+* **Key Needs:** They require a highly intuitive, low-friction mobile interface. Key features include fast search functionality, seamless cart management, clear checkout workflows supporting both Cash on Delivery (COD) and VNPay, and real-time push notifications for order tracking.
 
 ### Restaurant Partners (Food Providers)
 
@@ -251,7 +251,7 @@ The design and development of the Food Delivery Platform are subject to several 
 
 ### Team and Timeline Constraints
 
-* **Resource Limitations:** The development team is restricted to an academic group size of 3 members. Consequently, complex features like ML-based predictive ETAs, multi-branch restaurant chains, and online payment integrations (VNPay, MoMo) are explicitly deferred to later releases.
+* **Resource Limitations:** The development team is restricted to an academic group size of 3 members. Consequently, complex features like ML-based predictive ETAs, multi-branch restaurant chains, and additional online payment integrations beyond VNPay (e.g., MoMo) are explicitly deferred to later releases.
 
 ### Hardware and Operating System Constraints
 
@@ -296,14 +296,14 @@ This feature encompasses the primary user journey for food orderers using the na
 | Customer searches for a restaurant by name or filters by food category and geographic location. | System queries the database and returns a list of active restaurants matching the criteria within the user's delivery radius. |
 | Customer adds a menu item (specifying quantity) to their shopping cart. | System queries the database and returns a list of active restaurants matching the criteria within the user's delivery radius. |
 | Customer adds a menu item (specifying quantity) to their shopping cart. | System updates the cart state, calculates the running total, and stores the cart locally/remotely. |
-| Customer proceeds to checkout, confirms the delivery address, and selects "Cash on Delivery". | System finalizes the order, calculates the final total (including delivery fees), routes the order to the respective restaurant, and transitions the user to the order tracking screen. |
+| Customer proceeds to checkout, confirms the delivery address, and selects a payment method (COD or VNPay). | If COD is selected, the system finalizes the order, calculates the final total (including delivery fees), routes the order to the respective restaurant, and transitions the user to the order tracking screen. If VNPay is selected, the system initiates the VNPay payment flow and only finalizes/routes the order after successful payment confirmation. |
 
 ### Functional Requirements
 
 * **FR-1.1:** The system shall allow customers to register, log in, and manage their profiles via email and standard OAuth providers (e.g., Google, Apple) on native mobile devices.
 * **FR-1.2:** The system shall provide a search and filtering interface to browse restaurants by name, food category, and proximity.
 * **FR-1.3:** The system shall prevent users from adding items from multiple different restaurants into a single shopping cart simultaneously. If attempted, the system shall prompt the user to clear the current cart first.
-* **FR-1.4:** The system shall process checkouts exclusively using Cash on Delivery (COD) for Release 1. Online payment integrations (VNPay, MoMo) shall be disabled and hidden from the UI.
+* **FR-1.4:** The system shall allow customers to select a payment method at checkout and shall support both Cash on Delivery (COD) and online payment via VNPay for Release 1.
 * **FR-1.5:** The system shall validate that the provided delivery address falls within the restaurant's designated operational radius before allowing order submission.
 
 ## Real-Time Order Tracking (Native Mobile)
@@ -383,7 +383,7 @@ This feature provides a secure, web-based dashboard for System Administrators to
 * **FR-4.11 (Must-have):** The system shall allow administrators to view order details including status history, assigned Shipper (if any), and any cancellation reason.
 * **FR-4.12 (Must-have):** The system shall allow authorized administrators to cancel an order and shall require a cancellation reason; the system shall record the actor (administrator) and timestamp and notify affected parties.
 
-* **FR-4.13 (Must-have):** The system shall allow administrators to configure the platform commission percentage used to calculate Estimated Platform Commission on COD orders.
+* **FR-4.13 (Must-have):** The system shall allow administrators to configure the platform commission percentage used to calculate Estimated Platform Commission on completed orders.
 * **FR-4.14 (Must-have):** The system shall maintain a history of commission configuration changes including effective date/time and the administrator who performed the change.
 
 * **FR-4.15 (Must-have):** The system shall provide administrators access to the logical reports defined in the Reports section and shall support exporting report data in a machine-readable format (e.g., CSV).
@@ -409,7 +409,7 @@ The logical data model represents the core business objects manipulated by the s
 
 ## Reports
 
-For Release 1 (MVP), reporting capabilities are kept lightweight and are exclusively accessible to system administrators via the secure Web Dashboard. These reports are designed to monitor platform health, track early user adoption, and calculate basic financial metrics associated with Cash on Delivery (COD) transactions.
+For Release 1 (MVP), reporting capabilities are kept lightweight and are exclusively accessible to system administrators via the secure Web Dashboard. These reports are designed to monitor platform health, track early user adoption, and calculate basic financial metrics across both Cash on Delivery (COD) and VNPay transactions.
 
 The system shall generate the following logical reports. (Note: Specific visual layouts and charts will be determined during the UI/UX design phase).
 
@@ -420,10 +420,10 @@ The system shall generate the following logical reports. (Note: Specific visual 
 * **Sorting & Grouping:** Data shall be grouped by Day or Week. Default sort is descending by Date.
 * **Filtering Options:** Administrators must be able to filter the data by a specific Date Range and by specific Geographic Zones (if multiple zones are tested in the MVP).
 
-### Financial & Commission Summary (COD)
+### Financial & Commission Summary (COD + VNPay)
 
-* **Purpose:** Since all MVP transactions use Cash on Delivery (COD), the platform needs a reliable way to calculate the total Gross Merchandise Value (GMV) and the platform's expected commission from the restaurants.
-* **Content/Columns:** Restaurant Name, Total Completed Orders, Gross Merchandise Value (Total COD collected by shippers for that restaurant), Estimated Platform Commission (calculated as a fixed percentage, TBD, of the GMV).
+* **Purpose:** Since the MVP supports both Cash on Delivery (COD) and VNPay, the platform needs a reliable way to calculate the total Gross Merchandise Value (GMV) and the platform's expected commission from the restaurants across all completed orders.
+* **Content/Columns:** Restaurant Name, Total Completed Orders, Gross Merchandise Value (sum of completed order totals regardless of payment method), Payment Method Breakdown (COD count/amount, VNPay count/amount), Estimated Platform Commission (calculated as a configured fixed percentage of the GMV).
 * **Sorting & Grouping:** Grouped by Restaurant. Default sort is descending by Gross Merchandise Value.
 * **Filtering Options:** Filterable by Date Range (e.g., current month, previous week) to facilitate manual billing or reconciliation processes outside the system.
 
