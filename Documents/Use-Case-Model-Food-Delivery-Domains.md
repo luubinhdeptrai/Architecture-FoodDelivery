@@ -1,4 +1,4 @@
-# Mô hình Use Case — Hệ thống Giao Đồ Ăn (Release 1 / MVP)
+﻿# Mô hình Use Case — Hệ thống Giao Đồ Ăn (Release 1 / MVP)
 
 Version 1.0  
 Ngày: 24/03/2026  
@@ -317,59 +317,23 @@ UC64 .> UC66 : <<include>>
 
 # 3. Danh sách các Use-case
 
-| STT | Use Case ID | Tên Use Case | Miền nghiệp vụ | Actor chính |
-|---:|---|---|---|---|
-| 1 | UC-01 | Customer Register/Login | User & Access | Customer; OAuth Provider |
-| 2 | UC-02 | Submit Partner Application (Restaurant/Shipper) | User & Access | Restaurant Partner; Shipper |
-| 3 | UC-03 | Admin Sign-in + RBAC | User & Access | System Administrator |
-| 4 | UC-04 | Approve/Reject Partners | User & Access | System Administrator |
-| 5 | UC-05 | Suspend/Reactivate Partners | User & Access | System Administrator |
-| 6 | UC-06 | Search User Accounts | User & Access | System Administrator |
-| 7 | UC-07 | Write Immutable Audit Log | User & Access | System |
-| 8 | UC-10 | Browse/Search Restaurants | Discovery & Cart | Customer |
-| 9 | UC-11 | Search/Filter Food Items (Category + Proximity) | Discovery & Cart | Customer; Maps/Geocoding API |
-| 10 | UC-12 | View Restaurant/Item Availability | Discovery & Cart | Customer |
-| 11 | UC-13 | Manage Shopping Cart | Discovery & Cart | Customer |
-| 12 | UC-14 | Enforce Single-Restaurant Cart | Discovery & Cart | System |
-| 13 | UC-15 | Resolve Location for Proximity | Discovery & Cart | Maps/Geocoding API |
-| 14 | UC-20 | Validate Deliverability (Service Area + Radius) | Checkout & Payment | Customer; Maps/Geocoding API |
-| 15 | UC-21 | Checkout / Place Order | Checkout & Payment | Customer |
-| 16 | UC-22 | Select Payment Method | Checkout & Payment | Customer |
-| 17 | UC-23 | Place Order with COD | Checkout & Payment | Customer |
-| 18 | UC-24 | Pay via VNPay | Checkout & Payment | Customer; VNPay |
-| 19 | UC-25 | Confirm VNPay Payment | Checkout & Payment | VNPay |
-| 20 | UC-26 | Handle VNPay Failure/Cancel | Checkout & Payment | Customer |
-| 21 | UC-27 | Ensure Checkout Idempotency | Checkout & Payment | System |
-| 22 | UC-28 | Finalize & Route Order | Checkout & Payment | System |
-| 23 | UC-30 | Manage Menu Items | Restaurant Orders | Restaurant Partner |
-| 24 | UC-31 | Control Availability (Item/Restaurant) | Restaurant Orders | Restaurant Partner |
-| 25 | UC-32 | Accept/Reject Incoming Orders | Restaurant Orders | Restaurant Partner |
-| 26 | UC-33 | Update Preparation Status | Restaurant Orders | Restaurant Partner |
-| 27 | UC-34 | Cancel Order with Reason | Restaurant Orders | Restaurant Partner |
-| 28 | UC-35 | New Order Alert | Restaurant Orders | Restaurant Partner |
-| 29 | UC-40 | Toggle Availability | Delivery | Shipper |
-| 30 | UC-41 | Accept Delivery Job | Delivery | Shipper |
-| 31 | UC-42 | Confirm Pickup | Delivery | Shipper |
-| 32 | UC-43 | Confirm Delivery | Delivery | Shipper |
-| 33 | UC-50 | Receive Order Status Updates | Tracking & Notifications | Customer |
-| 34 | UC-51 | Publish Order Status Update | Tracking & Notifications | Restaurant Partner; Shipper; Admin |
-| 35 | UC-52 | WebSocket Update (Foreground) | Tracking & Notifications | System |
-| 36 | UC-53 | Push Notification (Background) | Tracking & Notifications | Push Provider |
-| 37 | UC-54 | Sync Latest Status (on reconnect) | Tracking & Notifications | Customer |
-| 38 | UC-55 | Notify Cancellation Reason | Tracking & Notifications | System |
-| 39 | UC-60 | Monitor Platform Health | Admin Ops | System Administrator |
-| 40 | UC-61 | Monitor Orders & View Details | Admin Ops | System Administrator |
-| 41 | UC-62 | Cancel Order with Reason | Admin Ops | System Administrator |
-| 42 | UC-63 | Configure Commission % (+ History) | Admin Ops | System Administrator |
-| 43 | UC-64 | View Reports | Admin Ops | System Administrator |
-| 44 | UC-65 | Export Reports (CSV) | Admin Ops | System Administrator |
-| 45 | UC-66 | Calculate GMV & Commission | Admin Ops | System |
+Danh sách dưới đây là **7 Use Case theo miền nghiệp vụ** (mỗi Use Case tương ứng 1 sơ đồ ở Mục 1). Mỗi Use Case miền sẽ được **phân rã** thành các Use Case con (UC-xx) đã thể hiện trong PlantUML.
+
+| STT | Use Case ID (Miền) | Tên Use Case (Miền nghiệp vụ) | Actor chính | Nguồn sơ đồ | Bao gồm (Use Case con) |
+|---:|---|---|---|---|---|
+| 1 | UC-D1 | Use-case Quản lý người dùng & truy cập | Customer; Restaurant Partner; Shipper; System Administrator; OAuth Provider | `Documents/usecase-diagrams/01-user-access.puml` | UC-01..UC-07 |
+| 2 | UC-D2 | Use-case Khám phá & giỏ hàng (Customer) | Customer; Device Location Service (GPS); Maps/Geocoding API | `Documents/usecase-diagrams/02-discovery-cart.puml` | UC-10..UC-20 (theo sơ đồ 02) |
+| 3 | UC-D3 | Use-case Checkout & thanh toán | Customer; VNPay; Maps/Geocoding API | `Documents/usecase-diagrams/03-checkout-payment.puml` | UC-20..UC-28 |
+| 4 | UC-D4 | Use-case Quản lý đơn hàng phía Nhà hàng | Restaurant Partner | `Documents/usecase-diagrams/04-restaurant-orders.puml` | UC-30..UC-35 |
+| 5 | UC-D5 | Use-case Quản lý giao hàng (Shipper) | Shipper | `Documents/usecase-diagrams/05-delivery-shipper.puml` | UC-40..UC-43 |
+| 6 | UC-D6 | Use-case Theo dõi đơn & thông báo | Customer; Restaurant Partner; Shipper; System Administrator; Push Provider | `Documents/usecase-diagrams/06-tracking-notifications.puml` | UC-50..UC-55 |
+| 7 | UC-D7 | Use-case Vận hành Admin & báo cáo | System Administrator | `Documents/usecase-diagrams/07-admin-ops-reporting.puml` | UC-60..UC-66 |
 
 ---
 
 # 4. Đặc tả Use-case
 
-Ghi chú chung (áp dụng cho nhiều use case):
+Ghi chú chung (áp dụng cho nhiều Use Case miền):
 - BR-2: Giỏ hàng chỉ chứa món của 1 nhà hàng.
 - BR-3: Địa chỉ giao phải nằm trong bán kính phục vụ nhà hàng.
 - BR-4: VNPay thành công mới được finalize/routing đơn.
@@ -377,712 +341,152 @@ Ghi chú chung (áp dụng cho nhiều use case):
 - BR-7: Trạng thái đơn phải đi theo chuỗi hợp lệ.
 - FR-2.3/FR-2.4: Push notification và hiển thị lý do hủy.
 
-Dưới đây là đặc tả cho từng Use Case trong danh sách ở Mục 3.
+Dưới đây là **đặc tả cho 7 Use Case miền** ở Mục 3 (theo format tham khảo).
 
-## UC-01 — Customer Register/Login
-
-|  |  |
-|---|---|
-| Use Case ID | UC-01 |
-| Tên Use Case | Customer Register/Login |
-| Actor | Customer; OAuth Provider (Google/Apple) |
-| Mô tả | Đăng ký/đăng nhập Customer để sử dụng app (FR-1.1). |
-| Preconditions | Có kết nối mạng; hệ thống auth hoạt động. |
-| Postconditions | Customer có session hợp lệ hoặc nhận lỗi an toàn. |
-| Priority | Cao |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Customer chọn đăng ký/đăng nhập. 2) Nhập thông tin hoặc chọn OAuth. 3) Hệ thống xác thực. 4) Tạo/khôi phục profile. 5) Trả kết quả thành công. |
-| Alternative Flow | A1) Sai thông tin → từ chối, hiển thị lỗi không lộ thông tin nhạy cảm. |
-| Exceptions | E1) Auth service unavailable → lỗi retry, app không crash. |
-| Includes | OAuth verification (nếu chọn OAuth) |
-| Extends | Không |
-| Special Requirements | Bảo mật thông tin; không log dữ liệu nhạy cảm. |
-
-## UC-02 — Submit Partner Application (Restaurant/Shipper)
+## UC-D1 — Use-case Quản lý người dùng & truy cập
 
 |  |  |
 |---|---|
-| Use Case ID | UC-02 |
-| Tên Use Case | Submit Partner Application (Restaurant/Shipper) |
-| Actor | Restaurant Partner; Shipper |
-| Mô tả | Gửi hồ sơ đăng ký để chờ Admin duyệt (BR-1). |
-| Preconditions | Partner chưa active; có kết nối mạng. |
-| Postconditions | Hồ sơ được lưu trạng thái `Pending Approval`. |
-| Priority | Cao |
-| Frequency | Thỉnh thoảng |
-| Normal Flow | 1) Partner mở form đăng ký. 2) Nhập thông tin. 3) Hệ thống validate. 4) Lưu hồ sơ pending. |
-| Alternative Flow | A1) Thiếu/không hợp lệ → hiển thị lỗi theo field. |
-| Exceptions | E1) Lỗi lưu/kết nối → không tạo hồ sơ; hiển thị retry. |
-| Includes | Validate application data |
-| Extends | Không |
-| Special Requirements | Hồ sơ phải xuất hiện trong queue duyệt của Admin. |
+| Use Case ID | UC-D1 |
+| Tên Use Case | Use-case Quản lý người dùng & truy cập |
+| Actor | Customer; Restaurant Partner; Shipper; System Administrator; OAuth Provider (Google/Apple) |
+| Mô tả (Description) | Quản lý đăng ký/đăng nhập, nộp hồ sơ đối tác, đăng nhập admin + RBAC, duyệt/tạm khóa, tra cứu tài khoản và ghi audit log cho hành động quản trị (FR-1.1; FR-4.1..FR-4.3; FR-4.16; BR-1). |
+| Điều kiện tiên quyết (Preconditions) | (1) Hệ thống hoạt động; (2) Có kết nối mạng; (3) OAuth provider sẵn sàng (nếu dùng OAuth). |
+| Kết quả sau cùng (Postconditions) | (1) Session người dùng được tạo hoặc bị từ chối an toàn; (2) Hồ sơ partner ở trạng thái `Pending Approval`/`Approved`/`Rejected`; (3) Admin action được enforce RBAC và có audit log. |
+| Mức độ ưu tiên (Priority) | Cao |
+| Tần suất sử dụng (Frequency of Use) | Hàng ngày |
+| Luồng sự kiện chính (Normal Course of Events) | 1) Người dùng đăng ký/đăng nhập (email hoặc OAuth).<br>2) Partner nộp hồ sơ đăng ký hoạt động trên nền tảng.<br>3) Admin đăng nhập dashboard, hệ thống nạp quyền và enforce RBAC.<br>4) Admin duyệt/từ chối hồ sơ hoặc tạm khóa/mở lại account theo quy định.<br>5) Hệ thống ghi audit log cho các hành động quản trị theo chính sách. |
+| Luồng thay thế (Alternative Courses) | A1) Đăng nhập OAuth thay cho email/password.<br>A2) Admin thao tác nhưng thiếu quyền → bị từ chối và ghi nhận attempt (không lộ thông tin nhạy cảm). |
+| Ngoại lệ (Exceptions) | E1) Dịch vụ auth/OAuth lỗi → hiển thị lỗi retryable; không crash; không tạo session sai.<br>E2) Ghi audit log thất bại → xử lý theo policy thống nhất (block hoặc retry). |
+| Bao gồm (Includes) | UC-01..UC-07 (theo sơ đồ 01). |
+| Mở rộng (Extends) | Không |
+| Yêu cầu đặc biệt (Special Requirements) | Bảo mật (không log dữ liệu nhạy cảm); RBAC bắt buộc cho admin actions; audit log bất biến cho admin actions (FR-4.16). |
+| Giả định (Assumptions) | OAuth provider tuân thủ SLA và hợp đồng tích hợp; Admin quy trình duyệt là thủ công (MVP). |
+| Ghi chú & Vấn đề (Notes and Issues) | Có thể cho phép browse menu không cần login (tuỳ chính sách MVP); nếu vậy thì UC-D2 có thể độc lập UC-D1 ở mức UI. |
 
-## UC-03 — Admin Sign-in + RBAC
-
-|  |  |
-|---|---|
-| Use Case ID | UC-03 |
-| Tên Use Case | Admin Sign-in + RBAC |
-| Actor | System Administrator |
-| Mô tả | Đăng nhập dashboard và enforce RBAC cho các thao tác quản trị (FR-4.1, FR-4.2). |
-| Preconditions | Admin có tài khoản hợp lệ. |
-| Postconditions | Admin truy cập được chức năng đúng quyền; hành vi trái quyền bị chặn. |
-| Priority | Cao |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Admin truy cập dashboard. 2) Xác thực. 3) Hệ thống nạp quyền. 4) Admin thao tác trong phạm vi cho phép. |
-| Alternative Flow | A1) Thất bại xác thực → từ chối. |
-| Exceptions | E1) Lỗi auth → lỗi retry. |
-| Includes | RBAC check per action |
-| Extends | Không |
-| Special Requirements | Log các lần bị từ chối quyền để điều tra. |
-
-## UC-04 — Approve/Reject Partners
+## UC-D2 — Use-case Khám phá & giỏ hàng (Customer)
 
 |  |  |
 |---|---|
-| Use Case ID | UC-04 |
-| Tên Use Case | Approve/Reject Partners |
-| Actor | System Administrator |
-| Mô tả | Duyệt/từ chối đăng ký Restaurant/Shipper (BR-1; FR-4.4..FR-4.7). |
-| Preconditions | Admin đã đăng nhập; có hồ sơ pending. |
-| Postconditions | Trạng thái partner = Approved/Rejected; lý do reject được lưu. |
-| Priority | Cao |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Admin mở queue pending. 2) Chọn hồ sơ. 3) Approve hoặc Reject. 4) Nếu Reject nhập lý do. 5) Hệ thống lưu và cập nhật trạng thái. |
-| Alternative Flow | A1) Không đủ quyền → từ chối. |
-| Exceptions | E1) Lỗi lưu → không đổi trạng thái, hiển thị lỗi. |
-| Includes | UC-07 Write Immutable Audit Log |
-| Extends | Không |
-| Special Requirements | Lý do reject bắt buộc. |
+| Use Case ID | UC-D2 |
+| Tên Use Case | Use-case Khám phá & giỏ hàng (Customer) |
+| Actor | Customer; Device Location Service (GPS); Maps/Geocoding API |
+| Mô tả (Description) | Customer khám phá nhà hàng/món theo tên/category/proximity, xem availability, quản lý giỏ hàng và enforce giỏ chỉ 1 nhà hàng (FR-1.2; FR-1.3; BR-2; BR-8; US-2/3/4/5/22). |
+| Điều kiện tiên quyết (Preconditions) | Có dữ liệu nhà hàng/menu active; có location (GPS permission hoặc địa chỉ nhập tay) khi dùng proximity. |
+| Kết quả sau cùng (Postconditions) | Customer nhìn thấy danh sách nhà hàng/món phù hợp; giỏ hàng cập nhật đúng; không thể chứa món từ nhiều nhà hàng; món sold-out/nhà hàng closed bị chặn add-to-cart. |
+| Mức độ ưu tiên (Priority) | Cao |
+| Tần suất sử dụng (Frequency of Use) | Hàng ngày |
+| Luồng sự kiện chính (Normal Course of Events) | 1) Customer browse/search nhà hàng và/hoặc tìm món theo category + proximity.<br>2) Khi cần proximity, Customer cung cấp vị trí (GPS hoặc nhập địa chỉ) và hệ thống geocode/reverse-geocode.<br>3) Customer mở chi tiết nhà hàng/menu và xem availability (closed/sold out).<br>4) Customer thêm/xóa/sửa số lượng món trong giỏ; hệ thống tính tổng.<br>5) Khi Customer cố thêm món khác nhà hàng, hệ thống chặn và đưa lựa chọn clear cart hoặc hủy thao tác. |
+| Luồng thay thế (Alternative Courses) | A1) Không có GPS permission → yêu cầu nhập địa chỉ; không trả kết quả proximity sai lệch.<br>A2) Customer chọn “Clear Cart” để chuyển sang nhà hàng khác. |
+| Ngoại lệ (Exceptions) | E1) Maps/Geocoding API lỗi/quá quota → báo lỗi retry; không cho hiển thị “proximity giả”.<br>E2) Availability thay đổi trong lúc browse → UI cần refresh trong cửa sổ mục tiêu. |
+| Bao gồm (Includes) | Các UC con trong sơ đồ 02 (UC-10..UC-20 tuỳ phiên bản sơ đồ 02). |
+| Mở rộng (Extends) | Không |
+| Yêu cầu đặc biệt (Special Requirements) | Enforce BR-2 bắt buộc; enforce BR-8 (không add-to-cart item sold-out/restaurant closed). |
+| Giả định (Assumptions) | Customer có internet ổn định; dữ liệu menu/availability được partner cập nhật kịp thời (BR-8). |
+| Ghi chú & Vấn đề (Notes and Issues) | Logic “deliverability” chi tiết được kiểm tra chặt ở UC-D3 (checkout). Ở UC-D2 có thể dùng proximity filter để giảm thất bại khi checkout (tuỳ cách thiết kế UX). |
 
-## UC-05 — Suspend/Reactivate Partners
-
-|  |  |
-|---|---|
-| Use Case ID | UC-05 |
-| Tên Use Case | Suspend/Reactivate Partners |
-| Actor | System Administrator |
-| Mô tả | Tạm khóa/mở lại partner để ngăn vận hành khi vi phạm (FR-4.8, FR-4.9). |
-| Preconditions | Admin đã đăng nhập; partner tồn tại. |
-| Postconditions | Partner `Suspended` hoặc `Active` tương ứng; enforcement áp dụng lên nhận/xử lý đơn. |
-| Priority | Trung bình |
-| Frequency | Thỉnh thoảng |
-| Normal Flow | 1) Admin tìm partner. 2) Chọn Suspend/Reactivate. 3) Nếu Suspend nhập lý do. 4) Hệ thống lưu trạng thái và áp chính sách. |
-| Alternative Flow | A1) Không đủ quyền → từ chối. |
-| Exceptions | E1) Lỗi lưu → không đổi trạng thái. |
-| Includes | UC-07 Write Immutable Audit Log |
-| Extends | Không |
-| Special Requirements | Lý do suspend bắt buộc; áp dụng chặn nhận đơn mới. |
-
-## UC-06 — Search User Accounts
+## UC-D3 — Use-case Checkout & thanh toán
 
 |  |  |
 |---|---|
-| Use Case ID | UC-06 |
-| Tên Use Case | Search User Accounts |
-| Actor | System Administrator |
-| Mô tả | Tìm/lọc user theo role và status (FR-4.3). |
-| Preconditions | Admin đã đăng nhập. |
-| Postconditions | Danh sách trả về đúng theo filter/search. |
-| Priority | Trung bình |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Admin mở User Management. 2) Chọn filter role/status. 3) Hệ thống truy vấn và trả kết quả. 4) Admin mở chi tiết user. |
-| Alternative Flow | A1) Không có kết quả → hiển thị rỗng. |
-| Exceptions | E1) Lỗi truy vấn → hiển thị retry. |
-| Includes | UC-07 Write Immutable Audit Log |
-| Extends | Không |
+| Use Case ID | UC-D3 |
+| Tên Use Case | Use-case Checkout & thanh toán |
+| Actor | Customer; VNPay; Maps/Geocoding API |
+| Mô tả (Description) | Customer checkout và đặt đơn theo COD hoặc VNPay; hệ thống enforce deliverability (service area + radius), chọn payment, idempotency, và chỉ finalize/routing khi VNPay confirm success (FR-1.4; FR-1.5; BR-3/4/6; US-6/7). |
+| Điều kiện tiên quyết (Preconditions) | Giỏ hợp lệ (1 nhà hàng); Customer có địa chỉ giao; hệ thống tích hợp VNPay sẵn sàng khi chọn VNPay. |
+| Kết quả sau cùng (Postconditions) | COD: đơn được finalize/routing ngay.<br>VNPay: chỉ finalize/routing sau khi nhận confirm success; fail/cancel → không routing và hiển thị trạng thái rõ ràng. |
+| Mức độ ưu tiên (Priority) | Cao |
+| Tần suất sử dụng (Frequency of Use) | Hàng ngày |
+| Luồng sự kiện chính (Normal Course of Events) | 1) Customer mở checkout và xác nhận địa chỉ giao.<br>2) Hệ thống validate deliverability (service area + bán kính).<br>3) Customer chọn COD hoặc VNPay.<br>4) Hệ thống enforce idempotency chống tạo đơn trùng khi retry.<br>5) Nếu COD: tạo đơn và finalize/routing.<br>6) Nếu VNPay: khởi tạo phiên thanh toán, nhận callback/return, xác thực, và chỉ finalize/routing khi success. |
+| Luồng thay thế (Alternative Courses) | A1) VNPay fail/cancel → hiển thị thất bại/hủy, cho retry; không routing.<br>A2) Retry checkout với cùng idempotency key trong TTL → trả về cùng order ID. |
+| Ngoại lệ (Exceptions) | E1) Deliverability fail → chặn checkout và hiển thị lý do (ngoài service area / ngoài bán kính).<br>E2) Callback VNPay không hợp lệ → coi như fail; không finalize/routing. |
+| Bao gồm (Includes) | UC-20..UC-28 (theo sơ đồ 03). |
+| Mở rộng (Extends) | Không |
+| Yêu cầu đặc biệt (Special Requirements) | BR-4 là ràng buộc cứng: VNPay chưa confirm success thì không finalize/routing; idempotency bắt buộc cho luồng checkout. |
+| Giả định (Assumptions) | VNPay sandbox/production hoạt động theo hợp đồng và có cơ chế verify chữ ký. |
+| Ghi chú & Vấn đề (Notes and Issues) | Cần quy định rõ trạng thái đơn khi VNPay fail/cancel (payment_failed/cancelled) để đảm bảo thống kê/hiển thị nhất quán. |
 
-## UC-07 — Write Immutable Audit Log
-
-|  |  |
-|---|---|
-| Use Case ID | UC-07 |
-| Tên Use Case | Write Immutable Audit Log |
-| Actor | System |
-| Mô tả | Ghi audit log bất biến cho hành động quản trị (FR-4.16; US-32). |
-| Preconditions | Có hành động admin cần ghi log. |
-| Postconditions | Audit entry được lưu với actor, action type, target, timestamp, before/after (nếu có). |
-| Priority | Trung bình |
-| Frequency | Phụ thuộc thao tác admin |
-| Normal Flow | 1) Admin action được thực hiện. 2) Hệ thống tạo audit entry. 3) Lưu vào kho audit (append-only). |
-| Alternative Flow | A1) Chính sách “block hoặc retry” khi ghi log thất bại. |
-| Exceptions | E1) Không ghi được log → xử lý theo policy nhất quán (US-32). |
-| Includes | Không |
-| Extends | Không |
-| Special Requirements | Không cho sửa/xóa audit entry; có filter theo time range/action type. |
-
-## UC-10 — Browse/Search Restaurants
+## UC-D4 — Use-case Quản lý đơn hàng phía Nhà hàng
 
 |  |  |
 |---|---|
-| Use Case ID | UC-10 |
-| Tên Use Case | Browse/Search Restaurants |
-| Actor | Customer |
-| Mô tả | Xem danh sách nhà hàng và tìm theo tên/category/proximity (FR-1.2; US-2). |
-| Preconditions | Có dữ liệu nhà hàng active. |
-| Postconditions | Danh sách kết quả hiển thị; mở được chi tiết nhà hàng. |
-| Priority | Cao |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Customer mở danh sách. 2) Hệ thống tải trang đầu. 3) Customer nhập query/chọn filter. 4) Hệ thống trả kết quả. |
-| Alternative Flow | A1) Catalog lớn → phân trang/continuous loading. |
-| Exceptions | E1) Lỗi tải dữ liệu → retry. |
-
-## UC-11 — Search/Filter Food Items (Category + Proximity)
-
-|  |  |
-|---|---|
-| Use Case ID | UC-11 |
-| Tên Use Case | Search/Filter Food Items (Category + Proximity) |
-| Actor | Customer; Maps/Geocoding API |
-| Mô tả | Tìm món theo keyword/category và lọc theo khoảng cách phục vụ (US-3; BR-3). |
-| Preconditions | Có vị trí (GPS hoặc địa chỉ). |
-| Postconditions | Danh sách món phù hợp + có thể giao tới vị trí. |
-| Priority | Trung bình |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Customer mở item search. 2) Hệ thống gọi UC-15 để lấy tọa độ. 3) Customer nhập keyword/chọn category. 4) Hệ thống trả kết quả và hiển thị nhà hàng/giá/khoảng cách. |
-| Alternative Flow | A1) Không có quyền GPS → yêu cầu nhập địa chỉ. |
-| Exceptions | E1) Map/geocode lỗi → retry; không trả kết quả proximity sai. |
-| Includes | UC-15 Resolve Location for Proximity |
-
-## UC-12 — View Restaurant/Item Availability
-
-|  |  |
-|---|---|
-| Use Case ID | UC-12 |
-| Tên Use Case | View Restaurant/Item Availability |
-| Actor | Customer |
-| Mô tả | Hiển thị trạng thái Closed/Sold Out để tránh đặt nhầm (BR-8; US-4). |
-| Preconditions | Menu/availability đã được nhà hàng cập nhật. |
-| Postconditions | Customer thấy rõ item/restaurant unavailable và bị chặn add-to-cart. |
-| Priority | Cao |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Customer mở nhà hàng/menu. 2) Hệ thống hiển thị trạng thái availability. 3) Nếu sold out/closed, khóa thao tác tương ứng. |
-| Alternative Flow | A1) Availability thay đổi khi đang xem → UI cập nhật trong cửa sổ mục tiêu (US-4). |
-| Exceptions | E1) Lỗi tải availability → retry. |
-
-## UC-13 — Manage Shopping Cart
-
-|  |  |
-|---|---|
-| Use Case ID | UC-13 |
-| Tên Use Case | Manage Shopping Cart |
-| Actor | Customer |
-| Mô tả | Thêm/xóa/sửa số lượng món trong giỏ (US-22). |
-| Preconditions | Customer đang xem menu hợp lệ. |
-| Postconditions | Giỏ hàng cập nhật đúng; tổng tiền nhất quán. |
-| Priority | Cao |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Add món vào giỏ. 2) Hệ thống cập nhật tổng. 3) Customer thay đổi số lượng/xóa món. 4) Hệ thống cập nhật ngay. |
-| Alternative Flow | A1) Khôi phục giỏ sau khi mở lại app trong “persistence window” (US-22). |
-| Exceptions | E1) Lỗi lưu giỏ → retry. |
-| Includes | UC-14 Enforce Single-Restaurant Cart |
-
-## UC-14 — Enforce Single-Restaurant Cart
-
-|  |  |
-|---|---|
-| Use Case ID | UC-14 |
-| Tên Use Case | Enforce Single-Restaurant Cart |
-| Actor | System |
-| Mô tả | Chặn thêm món từ nhà hàng khác vào cùng giỏ (BR-2; US-5). |
-| Preconditions | Giỏ đã có món của nhà hàng A. |
-| Postconditions | Nếu thêm món nhà hàng B → bị chặn và hiển thị lựa chọn (clear/cancel). |
-| Priority | Cao |
-| Frequency | Phụ thuộc hành vi user |
-| Normal Flow | 1) Customer chọn món nhà hàng khác. 2) Hệ thống phát hiện xung đột. 3) Hiển thị lựa chọn clear cart hoặc cancel. |
-| Alternative Flow | A1) Customer chọn clear cart → giỏ trống và cho phép thêm mới. |
-| Exceptions | Không |
-
-## UC-15 — Resolve Location for Proximity
-
-|  |  |
-|---|---|
-| Use Case ID | UC-15 |
-| Tên Use Case | Resolve Location for Proximity |
-| Actor | Maps/Geocoding API |
-| Mô tả | Chuyển GPS hoặc địa chỉ thành tọa độ phục vụ lọc proximity. |
-| Preconditions | Có GPS permission hoặc địa chỉ nhập tay. |
-| Postconditions | Trả về tọa độ hợp lệ hoặc lỗi để UI xử lý. |
-| Priority | Trung bình |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) App yêu cầu vị trí. 2) Nếu GPS → lấy tọa độ. 3) Nếu địa chỉ → geocode. 4) Trả kết quả cho UC-11. |
-| Alternative Flow | A1) Không có permission → yêu cầu nhập địa chỉ. |
-| Exceptions | E1) Provider unavailable/quota → lỗi retry. |
-
-## UC-20 — Validate Deliverability (Service Area + Radius)
-
-|  |  |
-|---|---|
-| Use Case ID | UC-20 |
-| Tên Use Case | Validate Deliverability (Service Area + Radius) |
-| Actor | Customer; Maps/Geocoding API |
-| Mô tả | Kiểm tra service area (BR-6) + bán kính giao (BR-3) trước khi đặt đơn (US-6; US-20). |
-| Preconditions | Customer có địa chỉ; nhà hàng có radius. |
-| Postconditions | Pass → cho checkout; Fail → chặn kèm lý do. |
-| Priority | Cao |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Customer nhập địa chỉ. 2) Hệ thống geocode. 3) Check thuộc service area. 4) Tính khoảng cách đến nhà hàng và so radius. 5) Trả kết quả. |
-| Alternative Flow | A1) Cache kết quả trong thời gian ngắn để giảm gọi API. |
-| Exceptions | E1) Map/geocode lỗi → chặn đặt đơn, retry. |
-
-## UC-21 — Checkout / Place Order
-
-|  |  |
-|---|---|
-| Use Case ID | UC-21 |
-| Tên Use Case | Checkout / Place Order |
-| Actor | Customer |
-| Mô tả | Checkout tạo đơn với COD/VNPay, có idempotency, và tuân BR-4 (US-7). |
-| Preconditions | Giỏ hợp lệ (1 nhà hàng); địa chỉ giao hợp lệ. |
-| Postconditions | COD: finalize/routing ngay; VNPay: finalize/routing sau confirm; thất bại: không routing. |
-| Priority | Cao |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Customer mở checkout. 2) UC-20 validate. 3) UC-22 chọn payment. 4) UC-27 idempotency. 5) Tùy payment: UC-23 hoặc UC-24. |
-| Alternative Flow | A1) Retry với cùng idempotency key trong TTL → trả về cùng order ID. |
-| Exceptions | E1) Deliverability fail → chặn và hiển thị lý do. |
-| Includes | UC-20; UC-22; UC-27 |
-
-## UC-22 — Select Payment Method
-
-|  |  |
-|---|---|
-| Use Case ID | UC-22 |
-| Tên Use Case | Select Payment Method |
-| Actor | Customer |
-| Mô tả | Customer chọn COD hoặc VNPay (BR-4; FR-1.4). |
-| Preconditions | Customer đang ở checkout. |
-| Postconditions | Hệ thống ghi nhận lựa chọn và điều hướng luồng tương ứng. |
-| Priority | Cao |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Hiển thị COD/VNPay. 2) Customer chọn 1. 3) Hệ thống lưu lựa chọn. |
-| Exceptions | Không |
-
-## UC-23 — Place Order with COD
-
-|  |  |
-|---|---|
-| Use Case ID | UC-23 |
-| Tên Use Case | Place Order with COD |
-| Actor | Customer |
-| Mô tả | Tạo đơn COD và finalize/routing ngay (BR-4). |
-| Preconditions | UC-21 đã hoàn thành bước validate + idempotency. |
-| Postconditions | Order được finalize và routed tới nhà hàng với trạng thái ban đầu hợp lệ. |
-| Priority | Cao |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Customer xác nhận đặt COD. 2) Hệ thống tạo order record. 3) UC-28 finalize/routing. |
-| Exceptions | E1) Lỗi tạo order → retry; tránh tạo trùng (idempotency). |
-| Includes | UC-28 Finalize & Route Order |
-
-## UC-24 — Pay via VNPay
-
-|  |  |
-|---|---|
-| Use Case ID | UC-24 |
-| Tên Use Case | Pay via VNPay |
-| Actor | Customer; VNPay |
-| Mô tả | Thực hiện thanh toán online qua VNPay; chỉ finalize/routing khi confirm thành công (BR-4). |
-| Preconditions | Customer chọn VNPay; hệ thống tạo phiên thanh toán. |
-| Postconditions | Success → UC-28; Fail/Cancel → UC-26; không routing nếu không success. |
-| Priority | Cao |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Hệ thống khởi tạo yêu cầu VNPay. 2) Customer hoàn tất thanh toán. 3) VNPay callback/return. 4) UC-25 confirm. 5) Nếu success → UC-28 (extend). |
-| Alternative Flow | A1) Customer hủy → UC-26 (extend). |
-| Exceptions | E1) Callback không hợp lệ → coi như fail, không routing. |
-| Includes | UC-25 Confirm VNPay Payment |
-
-## UC-25 — Confirm VNPay Payment
-
-|  |  |
-|---|---|
-| Use Case ID | UC-25 |
-| Tên Use Case | Confirm VNPay Payment |
-| Actor | VNPay |
-| Mô tả | Xác nhận kết quả thanh toán từ VNPay theo callback/redirect và đối soát. |
-| Preconditions | Hệ thống nhận callback/return từ VNPay. |
-| Postconditions | Payment status được xác định (success/fail/cancel). |
-| Priority | Cao |
-| Frequency | Theo giao dịch |
-| Normal Flow | 1) Nhận callback. 2) Verify chữ ký/tham số. 3) Ghi nhận kết quả. |
-| Exceptions | E1) Verify fail → payment fail, không finalize/routing. |
-
-## UC-26 — Handle VNPay Failure/Cancel
-
-|  |  |
-|---|---|
-| Use Case ID | UC-26 |
-| Tên Use Case | Handle VNPay Failure/Cancel |
-| Actor | Customer |
-| Mô tả | Hiển thị trạng thái thất bại/hủy thanh toán và cho retry; đơn không được routing (BR-4; US-7). |
-| Preconditions | UC-24 thanh toán fail/cancel. |
-| Postconditions | Customer thấy trạng thái rõ ràng và có thể retry thanh toán/checkout. |
-| Priority | Cao |
-| Frequency | Theo lỗi |
-| Normal Flow | 1) Hệ thống nhận trạng thái fail/cancel. 2) Đánh dấu trạng thái phù hợp. 3) Hiển thị màn hình thất bại/hủy với lựa chọn retry. |
-| Exceptions | Không |
-
-## UC-27 — Ensure Checkout Idempotency
-
-|  |  |
-|---|---|
-| Use Case ID | UC-27 |
-| Tên Use Case | Ensure Checkout Idempotency |
-| Actor | System |
-| Mô tả | Chống tạo đơn trùng khi retry checkout (US-7). |
-| Preconditions | Client gửi idempotency key. |
-| Postconditions | Cùng key trong TTL → trả cùng order ID; không tạo duplicate. |
-| Priority | Cao |
-| Frequency | Theo retry |
-| Normal Flow | 1) Nhận request + key. 2) Check key trong TTL. 3) Nếu đã tồn tại → trả kết quả cũ; nếu chưa → tiếp tục tạo mới và lưu mapping. |
-| Exceptions | E1) Store idempotency lỗi → xử lý theo chính sách (an toàn). |
-
-## UC-28 — Finalize & Route Order
-
-|  |  |
-|---|---|
-| Use Case ID | UC-28 |
-| Tên Use Case | Finalize & Route Order |
-| Actor | System |
-| Mô tả | Finalize order và route tới nhà hàng; với VNPay chỉ chạy khi payment success (BR-4). |
-| Preconditions | Order hợp lệ (COD hoặc VNPay success). |
-| Postconditions | Nhà hàng nhận đơn; order sẵn sàng vào lifecycle `Pending` → … |
-| Priority | Cao |
-| Frequency | Theo đơn |
-| Normal Flow | 1) Lock/finalize order. 2) Gán trạng thái ban đầu. 3) Route đến nhà hàng. 4) Kích hoạt cơ chế alert/notify. |
-| Exceptions | E1) Route thất bại → retry/queue theo thiết kế. |
-
-## UC-30 — Manage Menu Items
-
-|  |  |
-|---|---|
-| Use Case ID | UC-30 |
-| Tên Use Case | Manage Menu Items |
+| Use Case ID | UC-D4 |
+| Tên Use Case | Use-case Quản lý đơn hàng phía Nhà hàng |
 | Actor | Restaurant Partner |
-| Mô tả | Thêm/sửa/xóa/cập nhật món và giá (FR-3.1; US-11). |
-| Preconditions | Partner đã approved và đăng nhập portal. |
-| Postconditions | Menu cập nhật và hiển thị cho Customer trong cửa sổ đồng bộ mục tiêu. |
-| Priority | Cao |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Mở quản lý menu. 2) Thêm/sửa thông tin. 3) Validate dữ liệu (giá không âm…). 4) Lưu và publish thay đổi. |
-| Exceptions | E1) Validate fail → báo lỗi; E2) Lỗi lưu → retry. |
+| Mô tả (Description) | Nhà hàng quản lý menu & availability, nhận đơn mới, accept/reject theo timeout, cập nhật trạng thái chuẩn bị và hủy đơn với lý do (FR-3.1..FR-3.4; BR-7/8; US-11/12/13/23/24). |
+| Điều kiện tiên quyết (Preconditions) | Partner đã được admin duyệt; đã đăng nhập portal; đơn đã được route tới nhà hàng. |
+| Kết quả sau cùng (Postconditions) | Menu/availability cập nhật và phản ánh cho customer; đơn được accept/reject/hủy đúng rule; trạng thái đơn tiến triển đúng chuỗi (BR-7). |
+| Mức độ ưu tiên (Priority) | Cao |
+| Tần suất sử dụng (Frequency of Use) | Hàng ngày |
+| Luồng sự kiện chính (Normal Course of Events) | 1) Partner cập nhật menu và trạng thái sold-out/closed khi cần.<br>2) Khi có đơn mới, hệ thống phát alert nổi bật và hiển thị chi tiết đơn.<br>3) Partner accept hoặc reject đơn trong thời gian cho phép; hệ thống cập nhật trạng thái và notify các bên.<br>4) Partner cập nhật Preparing/Ready for Pickup theo chuỗi hợp lệ.<br>5) Nếu cần hủy trước pickup, partner nhập lý do và hệ thống notify customer. |
+| Luồng thay thế (Alternative Courses) | A1) Quá hạn accept timeout → hệ thống đánh dấu expired/unaccepted và notify customer. |
+| Ngoại lệ (Exceptions) | E1) Thao tác chuyển trạng thái sai chuỗi (BR-7) → bị từ chối.<br>E2) Lỗi kết nối/lưu trạng thái → retry, không tạo trạng thái “nửa chừng”. |
+| Bao gồm (Includes) | UC-30..UC-35 (theo sơ đồ 04). |
+| Mở rộng (Extends) | Không |
+| Yêu cầu đặc biệt (Special Requirements) | Alert đơn mới phải nổi bật, dễ nhận biết trong bếp (FR-3.3); availability phải có hiệu lực nhanh để chặn đơn mới (BR-8). |
+| Giả định (Assumptions) | Thiết bị bếp có kết nối ổn định; staff thao tác tối thiểu. |
+| Ghi chú & Vấn đề (Notes and Issues) | Thống nhất reason codes cho reject/timeout/cancel để tracking & hỗ trợ vận hành dễ hơn. |
 
-## UC-31 — Control Availability (Item/Restaurant)
-
-|  |  |
-|---|---|
-| Use Case ID | UC-31 |
-| Tên Use Case | Control Availability (Item/Restaurant) |
-| Actor | Restaurant Partner |
-| Mô tả | Toggle sold out/closed để chặn đơn mới ngay (BR-8; FR-3.2; US-12). |
-| Preconditions | Partner đăng nhập; item/restaurant tồn tại. |
-| Postconditions | Customer không add-to-cart/checkout với item/restaurant unavailable. |
-| Priority | Cao |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Partner toggle trạng thái. 2) Hệ thống lưu. 3) Đồng bộ trạng thái ra client. |
-| Exceptions | E1) Lỗi lưu → retry; trạng thái không thay đổi. |
-
-## UC-32 — Accept/Reject Incoming Orders
+## UC-D5 — Use-case Quản lý giao hàng (Shipper)
 
 |  |  |
 |---|---|
-| Use Case ID | UC-32 |
-| Tên Use Case | Accept/Reject Incoming Orders |
-| Actor | Restaurant Partner |
-| Mô tả | Nhà hàng nhận đơn mới, accept/reject; có timeout hết hạn (FR-3.3; US-13). |
-| Preconditions | Order đã được UC-28 route đến nhà hàng. |
-| Postconditions | Accept → `Accepted`; Reject/timeout → trạng thái tương ứng và Customer được thông báo. |
-| Priority | Cao |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) UC-35 alert. 2) Partner mở chi tiết đơn. 3) Accept hoặc Reject. 4) Hệ thống validate transition theo BR-7 và lưu. |
-| Alternative Flow | A1) Quá timeout → hệ thống đánh dấu expired/unaccepted và thông báo. |
-| Exceptions | E1) Lỗi cập nhật → retry; không đổi trạng thái. |
-| Includes | UC-35 New Order Alert |
-
-## UC-33 — Update Preparation Status
-
-|  |  |
-|---|---|
-| Use Case ID | UC-33 |
-| Tên Use Case | Update Preparation Status |
-| Actor | Restaurant Partner |
-| Mô tả | Cập nhật Preparing/Ready for Pickup, tuân BR-7 (FR-3.4; US-23). |
-| Preconditions | Order đã `Accepted`. |
-| Postconditions | Trạng thái được cập nhật và publish cho Customer/Shipper. |
-| Priority | Trung bình |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Partner chọn order. 2) Mark Preparing hoặc Ready. 3) Hệ thống kiểm tra chuỗi trạng thái hợp lệ. 4) Lưu và publish update. |
-| Exceptions | E1) Out-of-sequence → từ chối và hiển thị lý do. |
-
-## UC-34 — Cancel Order with Reason (Restaurant)
-
-|  |  |
-|---|---|
-| Use Case ID | UC-34 |
-| Tên Use Case | Cancel Order with Reason |
-| Actor | Restaurant Partner |
-| Mô tả | Hủy đơn trước pickup, bắt buộc lý do; Customer thấy lý do (FR-2.4; US-24). |
-| Preconditions | Order chưa `Picked Up`. |
-| Postconditions | Order = Canceled; lý do + actor + timestamp được lưu; thông báo được gửi. |
-| Priority | Trung bình |
-| Frequency | Thỉnh thoảng |
-| Normal Flow | 1) Partner chọn hủy đơn. 2) Nhập reason bắt buộc. 3) Hệ thống kiểm tra trạng thái cho phép. 4) Lưu và publish update (kèm reason). |
-| Exceptions | E1) Đơn đã picked up/delivered → chặn. |
-
-## UC-35 — New Order Alert
-
-|  |  |
-|---|---|
-| Use Case ID | UC-35 |
-| Tên Use Case | New Order Alert |
-| Actor | Restaurant Partner |
-| Mô tả | Cảnh báo âm thanh + hình ảnh nổi bật cho đơn mới đến (FR-3.3). |
-| Preconditions | Có order routed đến nhà hàng. |
-| Postconditions | Thiết bị nhà hàng hiển thị/chuông cho đến khi acknowledge. |
-| Priority | Cao |
-| Frequency | Theo đơn |
-| Normal Flow | 1) Order mới đến. 2) Hệ thống phát alert. 3) Partner acknowledge để tắt alert. |
-| Exceptions | E1) Thiết bị offline → alert trễ; cần cơ chế retry/poll. |
-
-## UC-40 — Toggle Availability (Shipper)
-
-|  |  |
-|---|---|
-| Use Case ID | UC-40 |
-| Tên Use Case | Toggle Availability |
+| Use Case ID | UC-D5 |
+| Tên Use Case | Use-case Quản lý giao hàng (Shipper) |
 | Actor | Shipper |
-| Mô tả | Bật/tắt sẵn sàng nhận job (US-15). |
-| Preconditions | Shipper đã approved và đăng nhập. |
-| Postconditions | Trạng thái online/offline được đồng bộ để dispatch hoạt động đúng. |
-| Priority | Cao |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Shipper bật Available hoặc Unavailable. 2) Hệ thống cập nhật trạng thái. |
-| Alternative Flow | A1) Mạng chập chờn → app hiển thị queued/synced. |
+| Mô tả (Description) | Shipper bật/tắt sẵn sàng, nhận job, xác nhận pickup và delivered; hệ thống enforce chỉ shipper được assign mới cập nhật trạng thái; cập nhật tuân BR-7 (US-15/16/17; BR-7). |
+| Điều kiện tiên quyết (Preconditions) | Shipper đã được admin duyệt; đã đăng nhập; có job được dispatch. |
+| Kết quả sau cùng (Postconditions) | Trạng thái shipper availability đồng bộ; job được assign duy nhất; trạng thái đơn chuyển đúng (Picked Up/Delivered) và publish cho customer/admin. |
+| Mức độ ưu tiên (Priority) | Cao |
+| Tần suất sử dụng (Frequency of Use) | Hàng ngày |
+| Luồng sự kiện chính (Normal Course of Events) | 1) Shipper set Available để nhận job.<br>2) Shipper nhận dispatch request và accept job; hệ thống lock assignment chống double-assign.<br>3) Shipper đến nhà hàng và confirm pickup; hệ thống validate trạng thái hợp lệ.<br>4) Shipper giao đến khách và confirm delivered; hệ thống ghi timestamp/actor để traceability. |
+| Luồng thay thế (Alternative Courses) | A1) Mạng chập chờn → app hiển thị trạng thái queued/retry; server không đổi trạng thái nếu chưa ghi nhận thành công. |
+| Ngoại lệ (Exceptions) | E1) Out-of-sequence (BR-7) → từ chối transition.<br>E2) Shipper không phải người được assign → bị từ chối (security). |
+| Bao gồm (Includes) | UC-40..UC-43 (theo sơ đồ 05). |
+| Mở rộng (Extends) | Không |
+| Yêu cầu đặc biệt (Special Requirements) | Bảo mật: chỉ shipper assigned cập nhật pickup/delivered; độ tin cậy cao tránh double-assign. |
+| Giả định (Assumptions) | Shipper sử dụng smartphone + GPS; có kết nối mobile data. |
+| Ghi chú & Vấn đề (Notes and Issues) | Có thể cần tách “dispatch/assignment” thành module riêng nếu mở rộng thuật toán phân công. |
 
-## UC-41 — Accept Delivery Job
-
-|  |  |
-|---|---|
-| Use Case ID | UC-41 |
-| Tên Use Case | Accept Delivery Job |
-| Actor | Shipper |
-| Mô tả | Nhận job giao và lock assignment để tránh double-assign (US-16). |
-| Preconditions | Shipper Available; có dispatch request. |
-| Postconditions | Order assigned cho shipper; người khác không nhận được nữa. |
-| Priority | Cao |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Shipper nhận request. 2) Chọn Accept. 3) Hệ thống gán và khóa assignment. |
-| Exceptions | E1) Lỗi server → retry; không assign 2 shipper. |
-
-## UC-42 — Confirm Pickup
+## UC-D6 — Use-case Theo dõi đơn & thông báo
 
 |  |  |
 |---|---|
-| Use Case ID | UC-42 |
-| Tên Use Case | Confirm Pickup |
-| Actor | Shipper |
-| Mô tả | Xác nhận pickup và cập nhật trạng thái theo BR-7 (US-16). |
-| Preconditions | Shipper assigned; order ở trạng thái cho phép. |
-| Postconditions | Order = `Picked Up` và được publish update. |
-| Priority | Cao |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Shipper chọn order. 2) Confirm pickup. 3) Hệ thống validate state. 4) Cập nhật và publish. |
-| Exceptions | E1) Mất kết nối → không đổi trạng thái; retry. |
+| Use Case ID | UC-D6 |
+| Tên Use Case | Use-case Theo dõi đơn & thông báo |
+| Actor | Customer; Restaurant Partner; Shipper; System Administrator; Push Provider (APNs/FCM) |
+| Mô tả (Description) | Hệ thống publish/receive cập nhật trạng thái đơn theo thời gian gần thực; khi app foreground dùng WebSocket, khi background/closed dùng push; khi hủy phải kèm lý do (FR-2.1..FR-2.4; US-9). |
+| Điều kiện tiên quyết (Preconditions) | Order tồn tại; các bên thực hiện hành động làm thay đổi trạng thái; push provider/WebSocket sẵn sàng. |
+| Kết quả sau cùng (Postconditions) | Customer nhận cập nhật trạng thái đúng & kịp thời; nếu hủy có reason; khi reconnect có thể sync latest state. |
+| Mức độ ưu tiên (Priority) | Cao |
+| Tần suất sử dụng (Frequency of Use) | Hàng ngày |
+| Luồng sự kiện chính (Normal Course of Events) | 1) Restaurant/Shipper/Admin thay đổi trạng thái đơn hợp lệ.<br>2) Hệ thống publish update sự kiện trạng thái.<br>3) Nếu app foreground: đẩy WebSocket cập nhật UI.<br>4) Nếu app background/closed: gửi push notification.<br>5) Nếu đơn bị hủy: notify kèm lý do theo FR-2.4. |
+| Luồng thay thế (Alternative Courses) | A1) App reconnect sau mất mạng → sync trạng thái mới nhất để tránh lệch UI. |
+| Ngoại lệ (Exceptions) | E1) Push/WebSocket bị degraded → cần cơ chế fallback theo thiết kế (ví dụ polling) để không “mất update”. |
+| Bao gồm (Includes) | UC-50..UC-55 (theo sơ đồ 06). |
+| Mở rộng (Extends) | Không |
+| Yêu cầu đặc biệt (Special Requirements) | Độ trễ cập nhật mục tiêu phải đáp ứng UX; khi hủy luôn có reason; không lộ thông tin nhạy cảm qua push payload. |
+| Giả định (Assumptions) | APNs/FCM và WebSocket infra đáp ứng mức sẵn sàng theo kế hoạch MVP. |
+| Ghi chú & Vấn đề (Notes and Issues) | Nếu MVP chưa có live map tracking, vẫn cần đảm bảo trạng thái “Picked Up/Delivered” cập nhật đúng và nhanh. |
 
-## UC-43 — Confirm Delivery
-
-|  |  |
-|---|---|
-| Use Case ID | UC-43 |
-| Tên Use Case | Confirm Delivery |
-| Actor | Shipper |
-| Mô tả | Xác nhận delivered, ghi actor/timestamp (US-17). |
-| Preconditions | Shipper assigned; order đã `Picked Up`. |
-| Postconditions | Order = `Delivered`; audit trail được lưu; kích hoạt tính GMV/commission. |
-| Priority | Cao |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Shipper chọn Confirm delivery. 2) Hệ thống validate state. 3) Lưu trạng thái + timestamp + shipper ID. |
-| Exceptions | E1) Out-of-sequence → từ chối; E2) Mất mạng → retry. |
-
-## UC-50 — Receive Order Status Updates
+## UC-D7 — Use-case Vận hành Admin & báo cáo
 
 |  |  |
 |---|---|
-| Use Case ID | UC-50 |
-| Tên Use Case | Receive Order Status Updates |
-| Actor | Customer |
-| Mô tả | Customer theo dõi trạng thái đơn theo FR-2.1..FR-2.4 / US-9. |
-| Preconditions | Customer có đơn đang theo dõi; có kênh kết nối. |
-| Postconditions | UI hiển thị trạng thái mới nhất; sync khi reconnect. |
-| Priority | Cao |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Hệ thống publish event (UC-51). 2) Foreground nhận WebSocket (UC-52). 3) Background nhận push (UC-53). 4) Reconnect → sync (UC-54). |
-| Alternative Flow | A1) Provider degraded → fallback polling (theo thiết kế). |
-| Exceptions | E1) Kênh realtime lỗi → không crash, retry/sync. |
-| Includes | UC-52; UC-53; UC-54 |
-| Extends | UC-55 (khi order cancelled) |
-
-## UC-51 — Publish Order Status Update
-
-|  |  |
-|---|---|
-| Use Case ID | UC-51 |
-| Tên Use Case | Publish Order Status Update |
-| Actor | Restaurant Partner; Shipper; System Administrator |
-| Mô tả | Phát sự kiện cập nhật trạng thái khi order thay đổi (Accepted/Preparing/Picked Up/Delivered/Cancelled…). |
-| Preconditions | Có thay đổi trạng thái hợp lệ. |
-| Postconditions | Event được gửi tới các kênh realtime/push. |
-| Priority | Cao |
-| Frequency | Theo thay đổi trạng thái |
-| Normal Flow | 1) Trạng thái đổi. 2) Hệ thống tạo event. 3) Đẩy event tới WebSocket và push pipeline. |
-
-## UC-52 — WebSocket Update (Foreground)
-
-|  |  |
-|---|---|
-| Use Case ID | UC-52 |
-| Tên Use Case | WebSocket Update (Foreground) |
-| Actor | System |
-| Mô tả | Push trạng thái realtime khi app đang foreground (FR-2.2). |
-| Preconditions | Kết nối WebSocket đang active. |
-| Postconditions | App nhận update và render. |
-| Priority | Cao |
-| Frequency | Theo update |
-
-## UC-53 — Push Notification (Background)
-
-|  |  |
-|---|---|
-| Use Case ID | UC-53 |
-| Tên Use Case | Push Notification (Background) |
-| Actor | Push Provider (APNs/FCM) |
-| Mô tả | Gửi thông báo khi app background/closed (FR-2.3). |
-| Preconditions | Push token hợp lệ. |
-| Postconditions | Customer nhận push; app phản ánh trạng thái mới khi mở lại. |
-
-## UC-54 — Sync Latest Status (on reconnect)
-
-|  |  |
-|---|---|
-| Use Case ID | UC-54 |
-| Tên Use Case | Sync Latest Status (on reconnect) |
-| Actor | Customer |
-| Mô tả | Đồng bộ trạng thái mới nhất sau khi mất kết nối (US-9). |
-| Preconditions | App reconnect. |
-| Postconditions | UI phản ánh trạng thái mới nhất từ backend. |
-
-## UC-55 — Notify Cancellation Reason
-
-|  |  |
-|---|---|
-| Use Case ID | UC-55 |
-| Tên Use Case | Notify Cancellation Reason |
-| Actor | System |
-| Mô tả | Khi order bị hủy bởi nhà hàng/admin, hiển thị lý do cho Customer (FR-2.4). |
-| Preconditions | Order bị cancel với reason bắt buộc (UC-34/UC-62). |
-| Postconditions | Customer thấy reason trong app/push. |
-
-## UC-60 — Monitor Platform Health
-
-|  |  |
-|---|---|
-| Use Case ID | UC-60 |
-| Tên Use Case | Monitor Platform Health |
+| Use Case ID | UC-D7 |
+| Tên Use Case | Use-case Vận hành Admin & báo cáo |
 | Actor | System Administrator |
-| Mô tả | Xem tổng quan đơn theo trạng thái và flag các đơn “stuck” theo ngưỡng cấu hình (US-19). |
-| Preconditions | Admin đã đăng nhập. |
-| Postconditions | Admin thấy dashboard với dữ liệu cập nhật trong freshness window mục tiêu. |
-| Priority | Trung bình |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Admin mở dashboard. 2) Hệ thống hiển thị counts theo status. 3) Đánh dấu stuck theo threshold. |
+| Mô tả (Description) | Admin giám sát nền tảng và đơn hàng, can thiệp hủy đơn với lý do, cấu hình commission và truy cập báo cáo/xuất CSV; các hành động nhạy cảm cần audit log (FR-4.10..FR-4.16; BR-5). |
+| Điều kiện tiên quyết (Preconditions) | Admin đã đăng nhập và có quyền phù hợp (RBAC). |
+| Kết quả sau cùng (Postconditions) | Admin xem được trạng thái hệ thống/đơn; can thiệp hợp lệ có ghi nhận; báo cáo/xuất CSV phục vụ đối soát; cấu hình commission có lịch sử. |
+| Mức độ ưu tiên (Priority) | Cao |
+| Tần suất sử dụng (Frequency of Use) | Hàng ngày |
+| Luồng sự kiện chính (Normal Course of Events) | 1) Admin mở dashboard và xem tổng quan health/orders.<br>2) Admin lọc/tìm và mở chi tiết đơn để điều tra.<br>3) Khi cần, admin hủy đơn và nhập lý do; hệ thống notify các bên và ghi audit.<br>4) Admin cấu hình commission % và hệ thống lưu lịch sử thay đổi.<br>5) Admin xem báo cáo và export CSV. |
+| Luồng thay thế (Alternative Courses) | A1) Một số báo cáo/metric có thể được precompute theo lịch (scheduler) để tăng hiệu năng (tuỳ thiết kế). |
+| Ngoại lệ (Exceptions) | E1) Admin không đủ quyền → bị từ chối (RBAC).<br>E2) Export lỗi → retry; bảo toàn tính đúng đắn dữ liệu xuất. |
+| Bao gồm (Includes) | UC-60..UC-66 (theo sơ đồ 07). |
+| Mở rộng (Extends) | Không |
+| Yêu cầu đặc biệt (Special Requirements) | Audit log bất biến cho admin actions (FR-4.16); báo cáo phải có định dạng ổn định cho đối soát (CSV). |
+| Giả định (Assumptions) | Dữ liệu đơn hàng và commission snapshot đủ để tính GMV/commission đúng (BR-5). |
+| Ghi chú & Vấn đề (Notes and Issues) | Cần thống nhất mô hình tính report (on-demand vs precomputed) để phản ánh đúng trong sơ đồ 07 và thiết kế backend. |
 
-## UC-61 — Monitor Orders & View Details
-
-|  |  |
-|---|---|
-| Use Case ID | UC-61 |
-| Tên Use Case | Monitor Orders & View Details |
-| Actor | System Administrator |
-| Mô tả | Lọc danh sách đơn theo status/time/restaurant và xem chi tiết + status history (FR-4.10, FR-4.11; US-28). |
-| Preconditions | Admin đã đăng nhập. |
-| Postconditions | Admin xem được chi tiết order để điều tra. |
-| Priority | Trung bình |
-| Frequency | Hàng ngày |
-| Normal Flow | 1) Admin mở Orders. 2) Chọn filter. 3) Hệ thống trả danh sách. 4) Mở 1 order để xem history, shipper, cancellation reason. |
-
-## UC-62 — Cancel Order with Reason (Admin)
-
-|  |  |
-|---|---|
-| Use Case ID | UC-62 |
-| Tên Use Case | Cancel Order with Reason |
-| Actor | System Administrator |
-| Mô tả | Admin hủy đơn có lý do, ghi actor/timestamp và notify các bên (FR-4.12; US-29). |
-| Preconditions | Admin authorized; order chưa Delivered. |
-| Postconditions | Order canceled; reason được gửi tới Customer/Restaurant (+ Shipper nếu assigned). |
-| Priority | Trung bình |
-| Frequency | Thỉnh thoảng |
-| Normal Flow | 1) Admin mở order. 2) Chọn Cancel. 3) Nhập reason bắt buộc. 4) Hệ thống lưu và publish update (kèm reason). |
-| Exceptions | E1) Order Delivered → chặn. |
-
-## UC-63 — Configure Commission % (+ Change History)
-
-|  |  |
-|---|---|
-| Use Case ID | UC-63 |
-| Tên Use Case | Configure Commission % (+ Change History) |
-| Actor | System Administrator |
-| Mô tả | Cấu hình commission % và lưu lịch sử thay đổi (FR-4.13, FR-4.14; US-30). |
-| Preconditions | Admin authorized. |
-| Postconditions | Commission % được cập nhật; history entry được ghi. |
-| Priority | Thấp-Trung bình |
-| Frequency | Thỉnh thoảng |
-| Normal Flow | 1) Admin mở Commission config. 2) Nhập % hợp lệ. 3) Hệ thống validate (0..100). 4) Lưu config và history (who/when). |
-
-## UC-64 — View Reports
-
-|  |  |
-|---|---|
-| Use Case ID | UC-64 |
-| Tên Use Case | View Reports |
-| Actor | System Administrator |
-| Mô tả | Xem báo cáo order volume, financial/commission summary (COD+VNPay), user approval status (FR-4.15; US-31). |
-| Preconditions | Admin authorized; dữ liệu tồn tại. |
-| Postconditions | Báo cáo hiển thị theo filter; cho phép export. |
-| Priority | Thấp-Trung bình |
-| Frequency | Hàng tuần / Hàng ngày |
-| Normal Flow | 1) Admin chọn loại report + filter. 2) Hệ thống tính dữ liệu (UC-66). 3) Hiển thị. 4) Nếu cần export → UC-65. |
-| Includes | UC-65; UC-66 |
-
-## UC-65 — Export Reports (CSV)
-
-|  |  |
-|---|---|
-| Use Case ID | UC-65 |
-| Tên Use Case | Export Reports (CSV) |
-| Actor | System Administrator |
-| Mô tả | Export báo cáo ra CSV với header ổn định để đối soát offline (FR-4.15). |
-| Preconditions | Báo cáo đã được tạo với filter. |
-| Postconditions | File CSV tải xuống thành công. |
-| Priority | Thấp-Trung bình |
-| Frequency | Thỉnh thoảng |
-
-## UC-66 — Calculate GMV & Commission
-
-|  |  |
-|---|---|
-| Use Case ID | UC-66 |
-| Tên Use Case | Calculate GMV & Commission |
-| Actor | System |
-| Mô tả | Tính GMV và commission theo % cấu hình, không phụ thuộc phương thức thanh toán (BR-5; US-21). |
-| Preconditions | Orders đã Delivered; final paid amount đã được ghi nhận. |
-| Postconditions | GMV/commission được tính và dùng cho report; giữ snapshot rate theo order để lịch sử không đổi. |
-| Priority | Thấp-Trung bình |
-| Frequency | Theo báo cáo / theo đơn Delivered |
-| Normal Flow | 1) Lấy danh sách delivered orders theo range/filter. 2) Tính GMV = tổng order totals. 3) Tính commission = GMV * rate. 4) Trả dữ liệu cho UC-64/UC-65. |
-| Exceptions | E1) Thiếu dữ liệu payment/amount → báo lỗi hoặc bỏ qua theo chính sách. |
-
----
-
-## Gợi ý render
-
-- Nếu dùng PlantUML Web Editor: copy nội dung từ `@startuml` đến `@enduml` (không copy Markdown fence).
-- Nếu dùng VS Code: mở trực tiếp các file `.puml` trong `Documents/usecase-diagrams/` để preview.
