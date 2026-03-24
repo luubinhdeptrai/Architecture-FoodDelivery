@@ -34,7 +34,7 @@ A_OAuth -- UC01
 
 UC04 .> UC07 : <<include>>
 UC05 .> UC07 : <<include>>
-UC06 .> UC07 : <<include>>
+
 
 usecase "UC-08 Manage Profile (View/Edit)" as UC08
 usecase "UC-09 Reset Password" as UC09
@@ -49,7 +49,7 @@ A_Shipper -- UC11
 
 UC01 .> UC08 : <<extend>>\n[after register/login]
 UC02 .> UC07 : <<include>>
-UC01 .> UC07 : <<include>>
+UC01 .> UC07 : <<extend>>\n[account created|failed login|privilege change]
 
 
 @enduml
