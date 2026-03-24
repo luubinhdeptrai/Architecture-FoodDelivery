@@ -1,4 +1,4 @@
-@startuml
+@startuml tracking-notifications
 title Use Case Diagram - Order Tracking & Notifications (Release 1 / MVP)
 
 left to right direction
@@ -19,6 +19,9 @@ rectangle "Food Delivery System (MVP)" as SYS {
   usecase "UC-53 Push Notification\n(Background)" as UC53
   usecase "UC-54 Sync Latest Status\n(on reconnect)" as UC54
   usecase "UC-55 Notify Cancellation Reason" as UC55
+
+  usecase "UC-56 Periodic Polling Fallback\n(when realtime degraded)" as UC56
+  usecase "UC-57 Provide Shipper Contact Details" as UC57
 }
 
 A_Customer -- UC50
@@ -27,9 +30,12 @@ A_Shipper -- UC51
 A_Admin -- UC51
 A_Push -- UC53
 
-UC50 .> UC52 : <<include>>
-UC50 .> UC53 : <<include>>
-UC50 .> UC54 : <<include>>
+UC52 .> UC50 : <<extend>>\n[app in foreground]
+UC53 .> UC50 : <<extend>>\n[app in background/closed]
+UC54 .> UC50 : <<extend>>\n[reconnect after disconnect]
+UC56 .> UC50 : <<extend>>\n[push/ws degraded]
+
+UC57 .> UC51 : <<extend>>\n[status=Picked Up]
 UC55 .> UC51 : <<extend>>\n[order cancelled]
 
 @enduml

@@ -1,4 +1,4 @@
-@startuml
+@startuml user-access
 title Use Case Diagram - User & Access Management (Release 1 / MVP)
 
 left to right direction
@@ -35,5 +35,21 @@ A_OAuth -- UC01
 UC04 .> UC07 : <<include>>
 UC05 .> UC07 : <<include>>
 UC06 .> UC07 : <<include>>
+
+usecase "UC-08 Manage Profile (View/Edit)" as UC08
+usecase "UC-09 Reset Password" as UC09
+usecase "UC-10 Logout" as UC10
+usecase "UC-11 View Application Status" as UC11
+
+A_Customer -- UC08
+A_Customer -- UC09
+A_Customer -- UC10
+A_Restaurant -- UC11
+A_Shipper -- UC11
+
+UC01 .> UC08 : <<extend>>\n[after register/login]
+UC02 .> UC07 : <<include>>
+UC01 .> UC07 : <<include>>
+
 
 @enduml
