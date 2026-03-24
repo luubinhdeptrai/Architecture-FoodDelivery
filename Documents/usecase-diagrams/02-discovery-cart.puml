@@ -1,0 +1,31 @@
+@startuml
+title Use Case Diagram - Discovery & Cart (Customer) (Release 1 / MVP)
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+actor "Customer" as A_Customer
+actor "Maps / Geocoding API" as A_Maps
+
+rectangle "Food Delivery System (MVP)" as SYS {
+  usecase "UC-10 Browse/Search Restaurants" as UC10
+  usecase "UC-11 Search/Filter Food Items\n(Category + Proximity)" as UC11
+  usecase "UC-12 View Restaurant/Item Availability" as UC12
+
+  usecase "UC-13 Manage Shopping Cart" as UC13
+  usecase "UC-14 Enforce Single-Restaurant Cart" as UC14
+
+  usecase "UC-15 Resolve Location for Proximity" as UC15
+}
+
+A_Customer -- UC10
+A_Customer -- UC11
+A_Customer -- UC12
+A_Customer -- UC13
+A_Maps -- UC15
+
+UC13 .> UC14 : <<include>>
+UC11 .> UC15 : <<include>>
+
+@enduml

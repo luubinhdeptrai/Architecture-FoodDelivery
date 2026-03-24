@@ -1,0 +1,22 @@
+@startuml
+title Use Case Diagram - Delivery Management (Shipper) (Release 1 / MVP)
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+actor "Shipper" as A_Shipper
+
+rectangle "Food Delivery System (MVP)" as SYS {
+  usecase "UC-40 Toggle Availability" as UC40
+  usecase "UC-41 Accept Delivery Job" as UC41
+  usecase "UC-42 Confirm Pickup" as UC42
+  usecase "UC-43 Confirm Delivery" as UC43
+}
+
+A_Shipper -- UC40
+A_Shipper -- UC41
+A_Shipper -- UC42
+A_Shipper -- UC43
+
+@enduml

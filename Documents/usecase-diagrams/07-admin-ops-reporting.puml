@@ -1,0 +1,31 @@
+@startuml
+title Use Case Diagram - Admin Operations & Reporting (Release 1 / MVP)
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+actor "System Administrator" as A_Admin
+
+rectangle "Food Delivery System (MVP)" as SYS {
+  usecase "UC-60 Monitor Platform Health" as UC60
+  usecase "UC-61 Monitor Orders & View Details" as UC61
+  usecase "UC-62 Cancel Order with Reason" as UC62
+
+  usecase "UC-63 Configure Commission %\n(+ Change History)" as UC63
+  usecase "UC-64 View Reports" as UC64
+  usecase "UC-65 Export Reports (CSV)" as UC65
+
+  usecase "UC-66 Calculate GMV & Commission" as UC66
+}
+
+A_Admin -- UC60
+A_Admin -- UC61
+A_Admin -- UC62
+A_Admin -- UC63
+A_Admin -- UC64
+
+UC64 .> UC65 : <<include>>
+UC64 .> UC66 : <<include>>
+
+@enduml

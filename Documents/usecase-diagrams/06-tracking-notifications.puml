@@ -1,0 +1,35 @@
+@startuml
+title Use Case Diagram - Order Tracking & Notifications (Release 1 / MVP)
+
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+actor "Customer" as A_Customer
+actor "Restaurant Partner" as A_Restaurant
+actor "Shipper" as A_Shipper
+actor "System Administrator" as A_Admin
+actor "Push Provider\n(APNs/FCM)" as A_Push
+
+rectangle "Food Delivery System (MVP)" as SYS {
+  usecase "UC-50 Receive Order Status Updates" as UC50
+  usecase "UC-51 Publish Order Status Update" as UC51
+
+  usecase "UC-52 WebSocket Update\n(Foreground)" as UC52
+  usecase "UC-53 Push Notification\n(Background)" as UC53
+  usecase "UC-54 Sync Latest Status\n(on reconnect)" as UC54
+  usecase "UC-55 Notify Cancellation Reason" as UC55
+}
+
+A_Customer -- UC50
+A_Restaurant -- UC51
+A_Shipper -- UC51
+A_Admin -- UC51
+A_Push -- UC53
+
+UC50 .> UC52 : <<include>>
+UC50 .> UC53 : <<include>>
+UC50 .> UC54 : <<include>>
+UC55 .> UC51 : <<extend>>\n[order cancelled]
+
+@enduml
