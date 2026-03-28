@@ -1,0 +1,96 @@
+@startuml
+' Activity Diagram - User & Access Management (SHORT)
+skinparam swimlaneOrientation vertical
+
+title Activity - User & Access Management (SHORT) (UC-D1)
+
+|System|
+start
+:Receive access request;
+
+if (Initiator = Customer?) then (Yes)
+  |Customer|
+  :Open account screen;
+  :Choose account action;
+
+  |System|
+  if (Action = Sign in?) then (Yes)
+    |Customer|
+    :Enter login details;
+    |System|
+    :Authenticate customer;
+    if (Authenticated?) then (Yes)
+      |Customer|
+      :Use customer features;
+      stop
+    else (No)
+      |Customer|
+      :See sign-in error;
+      stop
+    endif
+  else (Not sign in)
+    if (Action = Reset password?) then (Yes)
+      |Customer|
+      :Request password reset;
+      |System|
+      :Send reset instructions;
+      |Customer|
+      :Set a new password;
+      stop
+    else (Manage profile)
+      |System|
+      :Verify logged-in session;
+      if (Authorized?) then (Yes)
+        |Customer|
+        :Update basic profile;
+        |System|
+        :Save profile changes;
+        stop
+      else (No)
+        |Customer|
+        :Prompt to sign in;
+        stop
+      endif
+    endif
+  endif
+
+else (Not Customer)
+  if (Initiator = Admin?) then (Yes)
+    |Admin|
+    :Open admin dashboard;
+    |System|
+    :Authenticate and authorize;
+    if (Access allowed?) then (Yes)
+      :Load pending applications;
+      |Admin|
+      :Approve or reject partner;
+      |System|
+      :Update partner status;
+      stop
+    else (No)
+      |Admin|
+      :See access denied;
+      stop
+    endif
+  else (Partner)
+    |System|
+    if (Partner type?) then (Restaurant)
+      |Restaurant|
+      :Submit partner application;
+      |System|
+      :Mark application pending [BR-1];
+      |Restaurant|
+      :View pending status;
+      stop
+    else (Shipper)
+      |Shipper|
+      :Submit shipper application;
+      |System|
+      :Mark application pending [BR-1];
+      |Shipper|
+      :View pending status;
+      stop
+    endif
+  endif
+endif
+@enduml

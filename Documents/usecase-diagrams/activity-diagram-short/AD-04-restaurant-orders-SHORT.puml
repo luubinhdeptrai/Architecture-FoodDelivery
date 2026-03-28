@@ -1,0 +1,43 @@
+@startuml
+' Activity Diagram - Restaurant Order Management (SHORT)
+skinparam swimlaneOrientation vertical
+
+title Activity - Restaurant Order Management (SHORT) (UC-D4)
+
+|Restaurant|
+start
+:Open restaurant portal;
+
+|System|
+:Authenticate restaurant staff;
+if (Active partner?) then (Yes)
+else (No)
+  |Restaurant|
+  :See access blocked;
+  stop
+endif
+
+|System|
+:Deliver new order alert;
+
+|Restaurant|
+:Open order details;
+:Accept or reject order;
+
+|System|
+if (Accepted?) then (Yes)
+  :Set order Accepted [BR-7];
+  |Restaurant|
+  :Prepare the order;
+  :Mark ready for pickup;
+  |System|
+  :Set order Ready for pickup [BR-7];
+  stop
+else (Rejected)
+  |Restaurant|
+  :Provide rejection reason;
+  |System|
+  :Cancel order with reason;
+  stop
+endif
+@enduml

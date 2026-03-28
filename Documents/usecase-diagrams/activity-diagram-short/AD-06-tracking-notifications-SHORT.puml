@@ -1,0 +1,59 @@
+@startuml
+' Activity Diagram - Tracking & Notifications (SHORT)
+skinparam swimlaneOrientation vertical
+
+title Activity - Tracking & Notifications (SHORT) (UC-D6)
+
+|System|
+start
+:Receive order status change;
+:Validate lifecycle step [BR-7];
+
+if (Transition valid?) then (Yes)
+  :Update order status;
+  :Publish status update event;
+
+  :Notify restaurant of status;
+  |Restaurant|
+  :See order status update;
+
+  |System|
+  :Notify shipper of status;
+  |Shipper|
+  :See delivery status update;
+
+  |Customer|
+  if (App is active?) then (Yes)
+    |System|
+    :Send real-time update;
+    |External Systems (WebSocket)|
+    :Deliver WebSocket message;
+    |System|
+    if (WebSocket delivered?) then (Yes)
+      |Customer|
+      :See live status update;
+    else (No)
+      |External Systems (FCM / Push)|
+      :Send push notification;
+      |Customer|
+      :Open app to view status;
+    endif
+  else (No)
+    |External Systems (FCM / Push)|
+    :Send push notification;
+    |Customer|
+    :Open app to view status;
+  endif
+
+  |System|
+  if (Updates delayed?) then (Yes)
+    |Customer|
+    :Use status polling view;
+  endif
+  stop
+
+else (No)
+  :Reject invalid transition;
+  stop
+endif
+@enduml

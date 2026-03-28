@@ -1,0 +1,66 @@
+@startuml
+' Activity Diagram - Admin Ops & Reporting (SHORT)
+skinparam swimlaneOrientation vertical
+
+title Activity - Admin Ops & Reporting (SHORT) (UC-D7)
+
+|Admin|
+start
+:Open admin dashboard;
+:Enter admin credentials;
+
+|System|
+:Authenticate admin account;
+if (Authenticated?) then (Yes)
+  :Check admin permission;
+  if (Allowed?) then (Yes)
+    |Admin|
+    :Choose admin operation;
+
+    |System|
+    if (Operation = Approve partners?) then (Yes)
+      :Load pending applications;
+      |Admin|
+      :Approve or reject partner;
+      |System|
+      :Update partner status;
+      stop
+
+    else (No)
+      if (Operation = Cancel order?) then (Yes)
+        |Admin|
+        :Select order to cancel;
+        |System|
+        :Check current order state;
+        if (Delivered?) then (Yes)
+          |Admin|
+          :See cancellation blocked;
+          stop
+        else (No)
+          |System|
+          :Cancel order with reason;
+          :Notify affected parties;
+          stop
+        endif
+      else (Reports)
+        |Admin|
+        :Select report and filters;
+        |System|
+        :Generate report results;
+        |Admin|
+        :Export report as CSV;
+        stop
+      endif
+    endif
+
+  else (No)
+    |Admin|
+    :See access denied;
+    stop
+  endif
+else (No)
+  |Admin|
+  :See login failure;
+  stop
+endif
+@enduml

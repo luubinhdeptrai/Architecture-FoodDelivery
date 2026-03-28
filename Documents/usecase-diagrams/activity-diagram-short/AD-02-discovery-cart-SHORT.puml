@@ -1,0 +1,72 @@
+@startuml
+' Activity Diagram - Discovery & Cart (SHORT)
+skinparam swimlaneOrientation vertical
+
+title Activity - Discovery & Cart (SHORT) (UC-D2)
+
+|Customer|
+start
+:Open discovery screen;
+
+|System|
+:Show nearby restaurants;
+if (List loaded?) then (Yes)
+  |Customer|
+  :Browse or search restaurants;
+else (No)
+  |Customer|
+  :See loading error message;
+  stop
+endif
+
+|Customer|
+:Select a restaurant;
+
+|System|
+:Show menu and availability;
+
+|Customer|
+:Add item to cart;
+
+|System|
+if (Cart has other restaurant?) then (Yes)
+  |Customer|
+  :Confirm clear existing cart;
+  if (Clear cart?) then (Yes)
+    |System|
+    :Clear cart contents;
+    :Add selected items [BR-2];
+  else (No)
+    |Customer|
+    :Keep existing cart;
+    stop
+  endif
+else (No)
+  :Add selected items [BR-2];
+endif
+
+|Customer|
+:Set delivery location;
+
+|External Systems (Maps API)|
+:Resolve address location;
+
+|System|
+:Check service area [BR-6];
+if (In service area?) then (Yes)
+  :Check delivery radius [BR-3];
+  if (Deliverable?) then (Yes)
+    |Customer|
+    :Proceed to checkout;
+    stop
+  else (No)
+    |Customer|
+    :See out-of-radius message;
+    stop
+  endif
+else (No)
+  |Customer|
+  :See out-of-area message;
+  stop
+endif
+@enduml

@@ -1,0 +1,78 @@
+@startuml
+' Activity Diagram - Checkout & Payment (SHORT)
+skinparam swimlaneOrientation vertical
+
+title Activity - Checkout & Payment (SHORT) (UC-D3)
+
+|Customer|
+start
+:Open checkout page;
+:Confirm cart and address;
+
+|System|
+:Verify customer identity;
+if (Logged in?) then (Yes)
+else (No)
+  |Customer|
+  :Sign in or register;
+  |System|
+  :Authenticate customer;
+  if (Authenticated?) then (Yes)
+  else (No)
+    |Customer|
+    :See sign-in failure;
+    stop
+  endif
+endif
+
+|System|
+:Validate single-restaurant cart [BR-2];
+if (Cart valid?) then (Yes)
+else (No)
+  |Customer|
+  :Fix cart before checkout;
+  stop
+endif
+
+|External Systems (Maps API)|
+:Validate address deliverability;
+
+|System|
+:Check service area [BR-6];
+:Check delivery radius [BR-3];
+if (Deliverable?) then (Yes)
+else (No)
+  |Customer|
+  :See undeliverable message;
+  stop
+endif
+
+|Customer|
+:Choose payment method;
+
+|System|
+if (Payment = COD?) then (Yes)
+  :Create order (Pending);
+  :Route order to restaurant;
+  |Customer|
+  :View order tracking;
+  stop
+else (VNPay)
+  :Create VNPay payment request;
+  |External Systems (VNPay)|
+  :Customer completes payment;
+  |System|
+  :Confirm payment result [BR-4];
+  if (Payment successful?) then (Yes)
+    :Create order (Pending);
+    :Route order to restaurant;
+    |Customer|
+    :View order tracking;
+    stop
+  else (No)
+    |Customer|
+    :See payment failed message;
+    stop
+  endif
+endif
+@enduml

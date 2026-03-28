@@ -1,0 +1,50 @@
+@startuml
+' Activity Diagram - Delivery Management (SHORT)
+skinparam swimlaneOrientation vertical
+
+title Activity - Delivery Management (SHORT) (UC-D5)
+
+|Shipper|
+start
+:Open shipper app;
+
+|System|
+:Authenticate shipper account;
+if (Approved shipper?) then (Yes)
+else (No)
+  |Shipper|
+  :See account not approved;
+  stop
+endif
+
+|Shipper|
+:Set availability to online;
+
+|System|
+:Send delivery job offer;
+
+|Shipper|
+:Review job details;
+:Accept or decline job;
+
+|System|
+if (Accepted?) then (Yes)
+  :Assign job to shipper;
+  |External Systems (Maps API)|
+  :Show pickup route;
+  |Shipper|
+  :Confirm pickup done;
+  |System|
+  :Set order Picked Up [BR-7];
+  |External Systems (Maps API)|
+  :Show dropoff route;
+  |Shipper|
+  :Confirm delivery done;
+  |System|
+  :Set order Delivered [BR-7];
+  stop
+else (Declined)
+  :Offer job to others;
+  stop
+endif
+@enduml
